@@ -14,7 +14,7 @@ public class FamilyInfo {
 
     public void setSpouse(String name, String idNumber) {
         this.spouseName = name;
-        this.spouseIdNumber = idNumber;
+        this.spouseIdNumber = spouseIdNumberidNumber;
     }
 
     public void addChild(String name, String idNumber) {
