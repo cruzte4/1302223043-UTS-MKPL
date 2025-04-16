@@ -15,30 +15,70 @@ public class TaxFunction {
 	 */
 	
 	
-	public static int calculateTax(int monthlySalary, int otherMonthlyIncome, int numberOfMonthWorking, int deductible, boolean isMarried, int numberOfChildren) {
-		
-		int tax = 0;
-		
-		if (numberOfMonthWorking > 12) {
-			System.err.println("More than 12 month working per year");
-		}
-		
-		if (numberOfChildren > 3) {
-			numberOfChildren = 3;
-		}
-		
-		if (isMarried) {
-			tax = (int) Math.round(0.05 * (((monthlySalary + otherMonthlyIncome) * numberOfMonthWorking) - deductible - (54000000 + 4500000 + (numberOfChildren * 1500000))));
-		}else {
-			tax = (int) Math.round(0.05 * (((monthlySalary + otherMonthlyIncome) * numberOfMonthWorking) - deductible - 54000000));
-		}
-		
-		if (tax < 0) {
-			return 0;
-		}else {
-			return tax;
-		}
-			 
-	}
+public static int calculateTax(TaxData data) {
+    int months = data.getNumberOfMonthWorking();
+    int children = Math.min(data.getNumberOfChildren(), 3);
+
+    if (months > 12) {
+        System.err.println("More than 12 month working per year");
+    }
+
+    int income = (data.getMonthlySalary() + data.getOtherMonthlyIncome()) * months;
+    int nonTaxable = 54000000;
+
+    if (data.isMarried()) {
+        nonTaxable += 4500000 + (children * 1500000);
+    }
+
+    int taxableIncome = income - data.getDeductible() - nonTaxable;
+    int tax = (int) Math.round(0.05 * Math.max(taxableIncome, 0));
+
+    return tax;
+}
+
 	
+}
+
+package lib;
+
+public class TaxData {
+    private int monthlySalary;
+    private int otherMonthlyIncome;
+    private int numberOfMonthWorking;
+    private int deductible;
+    private boolean isMarried;
+    private int numberOfChildren;
+
+    public TaxData(int monthlySalary, int otherMonthlyIncome, int numberOfMonthWorking, int deductible, boolean isMarried, int numberOfChildren) {
+        this.monthlySalary = monthlySalary;
+        this.otherMonthlyIncome = otherMonthlyIncome;
+        this.numberOfMonthWorking = numberOfMonthWorking;
+        this.deductible = deductible;
+        this.isMarried = isMarried;
+        this.numberOfChildren = numberOfChildren;
+    }
+
+    public int getMonthlySalary() {
+        return monthlySalary;
+    }
+
+    public int getOtherMonthlyIncome() {
+        return otherMonthlyIncome;
+    }
+
+    public int getNumberOfMonthWorking() {
+        return numberOfMonthWorking;
+    }
+
+    public int getDeductible() {
+        return deductible;
+    }
+
+    public boolean isMarried() {
+        return isMarried;
+    }
+
+    public int getNumberOfChildren() {
+        return numberOfChildren;
+    }
 }
