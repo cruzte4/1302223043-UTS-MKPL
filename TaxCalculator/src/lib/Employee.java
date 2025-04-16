@@ -100,7 +100,7 @@ public class Employee {
 			monthlySalary = 7000000;
 		}
 		if (isForeigner){
-			monthlySalary=(int) monthlySalary*1.5
+			monthlySalary=(int) monthlySalary*1.5;
 		}
 	}
 	
