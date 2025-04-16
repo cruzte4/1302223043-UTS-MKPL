@@ -100,6 +100,8 @@ public class Employee {
 			monthWorkingInYear = 12;
 		}
 		
-		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible, spouseIdNumber.equals(""), childIdNumbers.size());
+		TaxData data = new TaxData(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible, !isSingle, childIdNumbers.size());
+		return TaxFunction.calculateTax(data);
+
 	}
 }
