@@ -4,6 +4,49 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ArrayList;
+
+public class FamilyInfo {
+    private String spouseName;
+    private String spouseIdNumber;
+    private final List<String> childNames = new ArrayList<>();
+    private final List<String> childIdNumbers = new ArrayList<>();
+
+    public void setSpouse(String name, String idNumber) {
+        this.spouseName = name;
+        this.spouseIdNumber = idNumber;
+    }
+
+    public void addChild(String name, String idNumber) {
+        childNames.add(name);
+        childIdNumbers.add(idNumber);
+    }
+
+    public boolean hasSpouse() {
+        return spouseIdNumber != null && !spouseIdNumber.isEmpty();
+    }
+
+    public int getNumberOfChildren() {
+        return childIdNumbers.size();
+    }
+
+    public List<String> getChildNames() {
+        return childNames;
+    }
+
+    public List<String> getChildIdNumbers() {
+        return childIdNumbers;
+    }
+
+    public String getSpouseName() {
+        return spouseName;
+    }
+
+    public String getSpouseIdNumber() {
+        return spouseIdNumber;
+    }
+}
+
 
 public class Employee {
 
@@ -25,11 +68,7 @@ public class Employee {
 	private int otherMonthlyIncome;
 	private int annualDeductible;
 	
-	private String spouseName;
-	private String spouseIdNumber;
-
-	private List<String> childNames;
-	private List<String> childIdNumbers;
+	private FamilyInfo familyInfo = new FamilyInfo();
 	
 	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, boolean gender) {
 		this.employeeId = employeeId;
@@ -43,8 +82,8 @@ public class Employee {
 		this.isForeigner = isForeigner;
 		this.gender = gender;
 		
-		childNames = new LinkedList<String>();
-		childIdNumbers = new LinkedList<String>();
+		childNames = new ArrayList<String>();
+		childIdNumbers = new ArrayList<String>();
 	}
 	
 	/**
